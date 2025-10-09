@@ -8,7 +8,6 @@ class Unique(object):
         while True:
             item = next(self.items)
 
-            # Для сравнения учитываем регистр, если нужно
             if isinstance(item, str) and self.ignore_case:
                 key = item.lower()
             else:

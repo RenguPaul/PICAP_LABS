@@ -1,7 +1,6 @@
 import time
 from contextlib import contextmanager
 
-# Реализация на основе класса
 class cm_timer_1:
     def __enter__(self):
         self.start_time = time.time()
@@ -12,7 +11,6 @@ class cm_timer_1:
         print(f"time: {elapsed_time:.1f}")
 
 
-# Реализация с использованием contextlib
 @contextmanager
 def cm_timer_2():
     start_time = time.time()
