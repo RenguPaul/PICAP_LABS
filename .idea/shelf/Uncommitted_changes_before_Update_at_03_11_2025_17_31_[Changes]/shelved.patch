@@ -1,0 +1,103 @@
+Index: lab_python_fp/gen_random.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lab_python_fp/gen_random.py b/lab_python_fp/gen_random.py
+new file mode 100644
+--- /dev/null	(date 1757512457795)
++++ b/lab_python_fp/gen_random.py	(date 1757512457795)
+@@ -0,0 +1,12 @@
++import random
++
++
++def gen_random(num_count: int, begin: int, end: int):
++    try:
++        for i in range(num_count):
++            yield random.randint(begin, end)
++
++    except:
++        return TypeError("Ошибка. Убедитесь, что в аргументы функции вы передали целые числа")
++
++
+Index: lab_python_fp/field.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lab_python_fp/field.py b/lab_python_fp/field.py
+new file mode 100644
+--- /dev/null	(date 1757508455401)
++++ b/lab_python_fp/field.py	(date 1757508455401)
+@@ -0,0 +1,33 @@
++from typing import List, Dict
++import sys
++
++
++def field(data: List[Dict], *args):
++    try:
++        assert len(args) > 0
++        if len(args) == 1:
++            key = args[0]
++            for item in data:
++                if key in item and item[key] is not None:
++                    print(item[key])
++        else:
++            for item in data:
++                filtered_item = {
++                    key: item[key]
++                    for key in args
++                    if key in item and item[key] is not None
++                }
++                if filtered_item:
++                    print(filtered_item)
++
++    except AssertionError:
++        print("Нет аргументов. Попробуйте перезапустить программу и попробовать ещё раз")
++        sys.exit()
++
++
++goods = [
++    {'title': 'Ковер', 'price': 2000, 'color': 'green'},
++    {'title': 'Диван для отдыха', 'price': 5300, 'color': 'black'}
++]
++
++field(goods, 'title', 'price')
+\ No newline at end of file
+Index: lab_python_fp/unique.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lab_python_fp/unique.py b/lab_python_fp/unique.py
+new file mode 100644
+--- /dev/null	(date 1757603185444)
++++ b/lab_python_fp/unique.py	(date 1757603185444)
+@@ -0,0 +1,26 @@
++from lab_python_fp import gen_random
++from gen_random import gen_random
++
++
++class Unique(object):
++    def __init__(self, data, ignore_case=False, **kwargs):
++        self.ignore_case = kwargs.get('ignore_case')
++        self.data = iter(data)
++        self.unique = set()
++
++
++    def __iter__(self):
++        return self
++
++    def __next__(self):
++        while True:
++            element = next(self.data)
++            diff = element.upper() if self.ignore_case else element
++            if diff not in self.unique:
++                self.unique.add(element)
++                yield element
++
++
++numbers = gen_random(5, 1, 5)
++"""for i in numbers:
++    print(i, end=' ')"""
+\ No newline at end of file
